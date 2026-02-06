@@ -7,18 +7,27 @@ function adicionar() {
     let nomeProduto = produto.split('-')[0];
     let valorUnitario = produto.split('$')[1];
     let quantidade = document.getElementById('quantidade').value;
-    //calcular o preço, o subtotal
-    let preco = quantidade * valorUnitario;
-    //adicionar o produto no carrinho
-    let carrinho = document.getElementById('lista-produtos');
-    carrinho.innerHTML = carrinho.innerHTML + `<section class="carrinho__produtos__produto">
+
+    if (isNaN(quantidade) || quantidade <= 0) {
+        alert('Por favor, insira uma quantidade válida');
+        return;
+    } else {
+        //calcular o preço, o subtotal
+        let preco = quantidade * valorUnitario;
+
+        //adicionar o produto no carrinho
+        let carrinho = document.getElementById('lista-produtos');
+        carrinho.innerHTML = carrinho.innerHTML + `<section class="carrinho__produtos__produto">
           <span class="texto-azul">${quantidade}x</span> ${nomeProduto} <span class="texto-azul">R$${preco}</span>
         </section>`
-    //atualizar o valor total da compra
-    totalGeral = totalGeral + preco;
-    let campoTotal = document.getElementById('valor-total');
-    campoTotal.textContent = `R$ ${totalGeral}`;
-    document.getElementById('quantidade').value = 0;
+
+        //atualizar o valor total da compra
+        totalGeral = totalGeral + preco;
+        let campoTotal = document.getElementById('valor-total');
+        campoTotal.textContent = `R$ ${totalGeral}`;
+        document.getElementById('quantidade').value = 0;
+    }
+    //validador
 }
 
 function limpar() {
